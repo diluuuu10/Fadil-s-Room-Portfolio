@@ -29,8 +29,8 @@ export default class PCIframe {
     // ✅ tweak separately from TV
     this.tweak = {
       pxPerMeter: 0.6,
-      offsetX: 0.009,
-      offsetY: 0.009,
+      offsetX: 0.005,
+      offsetY: 0.015,
       push: 0.0,
       normalFlip: false,
 
@@ -165,8 +165,8 @@ export default class PCIframe {
     const iframe = document.createElement("iframe");
     iframe.src = "/computer-ui/index.html";
     iframe.allow = "autoplay; clipboard-write";
-    iframe.style.width = "800px";
-    iframe.style.height = "460px";
+    iframe.style.width = "820px";
+    iframe.style.height = "525px";
     iframe.style.border = "0";
     iframe.style.borderRadius = "18px";
     iframe.style.background = "transparent";
