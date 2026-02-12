@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fadil's Room Portfolio</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loader" class="loader" role="status" aria-live="polite">
+      <div class="loaderBg" aria-hidden="true"></div>
+
+      <div class="loaderCard" aria-label="Loading">
+        <div class="loaderTitle">
+          <span class="loaderMark" aria-hidden="true">▶</span>
+          <span class="loaderName">MY Retro 3D room</span>
+          <span class="loaderSub">Loading</span>
+        </div>
+
+        <div class="loaderRow">
+          <div class="loaderMeter" aria-label="Loading progress">
+            <div id="loaderBar" class="loaderBar"></div>
+          </div>
+          <div id="loaderPct" class="loaderPct">0%</div>
+        </div>
+
+        <div id="loaderHint" class="loaderHint">Booting RoomOS…</div>
+
+        <button
+          id="loaderStart"
+          class="loaderStart is-hidden"
+          type="button"
+          aria-hidden="true"
+        >
+          Enter Room
+        </button>
+
+        <div class="loaderFoot" aria-hidden="true">
+          Tip: press <kbd>Enter</kbd> to continue
+        </div>
+      </div>
+    </div>
+
+    <!-- UI overlay (navbar) -->
+    <nav class="topNav" aria-label="Room navigation">
+      <div class="navGroup">
+        <button id="navAbout" class="navBtn" type="button">
+          <span class="navIcon">📺</span>
+          <span class="navText">About Me</span>
+        </button>
+
+        <button id="navShop" class="navBtn" type="button">
+          <span class="navIcon">🖥️</span>
+          <span class="navText">Shop</span>
+        </button>
+
+        <button
+          id="nightToggle"
+          class="navBtn themeBtn"
+          type="button"
+          aria-label="Toggle day/night mode"
+          title="Day/Night"
+        >
+          <span class="themeInner" aria-hidden="true">
+            <span class="icon sun">☀️</span>
+            <span class="icon moon">🌙</span>
+          </span>
+          <span class="srOnly">Toggle day/night</span>
+        </button>
+      </div>
+    </nav>
+
+    <div id="css-tv" class="css-layer"></div>
+
+    <canvas class="webgl"></canvas>
+
+    <button
+      id="resetCam"
+      class="resetCam is-hidden"
+      type="button"
+      aria-label="Reset camera view"
+      title="Reset view"
+    >
+      <span class="resetIcon" aria-hidden="true">↩</span>
+      <span class="resetText">Back to Room</span>
+    </button>
+
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TV Portfolio • Credits</title>
+    <link rel="stylesheet" href="./assets/ps2.css" />
+  </head>
+
+  <body>
+    <div class="bg" aria-hidden="true"></div>
+
+    <div class="ps2-ui" role="application" aria-label="PS2 Credits Screen">
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <div class="top-left">
+          <span class="dot"></span>
+          <span class="top-text">Credits</span>
+        </div>
+
+        <div class="top-center">
+          <span class="chip">
+            <span class="chipIcon">👤</span>
+            <span class="chipText">User Name</span>
+          </span>
+
+          <span class="chip">
+            <span class="chipIcon">🏆</span>
+            <span class="chipText">123</span>
+          </span>
+        </div>
+
+        <div class="top-right">
+          <span class="clock" id="clock">--:--</span>
+        </div>
+      </header>
+
+      <!-- MAIN -->
+      <main class="stage stage--page">
+        <section class="pageWrap creditsWrap">
+          <!-- left mini nav -->
+          <aside class="sideNav">
+            <button class="sideItem active" type="button" data-panel="thanks">
+              Thanks
+            </button>
+            <button class="sideItem" type="button" data-panel="inspiration">
+              Inspiration
+            </button>
+            <button class="sideItem" type="button" data-panel="tools">
+              Tools
+            </button>
+            <button class="sideItem" type="button" data-panel="assets">
+              Assets
+            </button>
+
+            <div class="sideHint">
+              <div><span class="kbd">↑ ↓</span> Move</div>
+              <div><span class="kbd">Esc</span> Home</div>
+            </div>
+          </aside>
+
+          <!-- content -->
+          <section class="panel">
+            <!-- THANKS -->
+            <div class="panelPage show" id="thanks">
+              <h1 class="pageTitle">Credits</h1>
+              <p class="pageLead">
+                Thank you to the people and tools that helped make this
+                portfolio possible.
+              </p>
+
+              <div class="cardGrid">
+                <div class="card">
+                  <h2>Family</h2>
+                  <p>
+                    My family — for constant support, patience, and encouragement throughout the whole process.
+                  </p>
+                </div>
+
+                <div class="card">
+                  <h2>Open Source</h2>
+                  <p>
+                    The open-source community — for the libraries, tutorials,
+                    and shared knowledge that make building fun.
+                  </p>
+                </div>
+
+                <div class="card">
+                  <h2>Inspiration</h2>
+                  <p>
+                    Creators who push interactive web portfolios and clean UI
+                    design.
+                  </p>
+                </div>
+
+                <div class="card">
+                  <h2>Tools</h2>
+                  <p>
+                    Blender, Three.js, and Vite — the stack that powers this
+                    experience.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- INSPIRATION -->
+            <div class="panelPage" id="inspiration">
+              <h1 class="pageTitle">Inspiration</h1>
+              <p class="pageLead">
+                Projects and creators that influenced the look, feel, and
+                interaction style.
+              </p>
+
+              <div class="card">
+                <h2>Bruno Simon — Three.js Journey</h2>
+                <p>
+                  Inspiration for interactive 3D experiences and “world-like”
+                  web portfolios.
+                </p>
+                <p class="smallText">Credit: Bruno Simon (Three.js Journey)</p>
+              </div>
+
+              <div class="card">
+                <h2>Joan Mursufa — Portfolio Inspiration</h2>
+                <p>
+                  Inspiration for the navigation/portfolio flow and presentation
+                  style.
+                </p>
+                <p class="smallText">Credit: Joan Mursufa portfolio</p>
+              </div>
+            </div>
+
+            <!-- TOOLS -->
+            <div class="panelPage" id="tools">
+              <h1 class="pageTitle">Tools</h1>
+              <p class="pageLead">
+                The software and frameworks used to build the portfolio.
+              </p>
+
+              <div class="cardGrid">
+                <div class="card">
+                  <h2>Three.js</h2>
+                  <p>3D rendering and interaction layer for the room scene.</p>
+                </div>
+
+                <div class="card">
+                  <h2>WebGL</h2>
+                  <p>Graphics API powering the rendering pipeline.</p>
+                </div>
+
+                <div class="card">
+                  <h2>Vite</h2>
+                  <p>Fast dev server and build tooling for the project.</p>
+                </div>
+
+                <div class="card">
+                  <h2>Blender</h2>
+                  <p>Modeling, UVs, baking textures, and export workflow.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ASSETS -->
+            <div class="panelPage" id="assets">
+              <h1 class="pageTitle">Assets</h1>
+              <p class="pageLead">
+                Asset sources and libraries used in the scene.
+              </p>
+
+              <div class="card">
+                <h2>BlenderKit</h2>
+                <p>Some assets and materials were sourced from BlenderKit.</p>
+                <p class="smallText">Credit: BlenderKit</p>
+              </div>
+
+          </section>
+        </section>
+      </main>
+
+      <!-- BOTTOM BAR -->
+      <footer class="bottombar">
+        <div class="bottom-left">
+          <span class="kbd">Esc</span>
+          <span class="muted">Back to Home</span>
+        </div>
+
+        <div class="bottom-right">
+          <span class="kbd">↑ ↓</span><span class="muted">Sections</span>
+          <span class="kbd">Enter</span><span class="muted">Open</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // clock
+      const clockEl = document.getElementById("clock");
+      function tick() {
+        const d = new Date();
+        clockEl.textContent =
+          String(d.getHours()).padStart(2, "0") +
+          ":" +
+          String(d.getMinutes()).padStart(2, "0");
+      }
+      tick();
+      setInterval(tick, 10000);
+
+      // side nav switching
+      const sideButtons = [...document.querySelectorAll(".sideItem")];
+      const pages = [...document.querySelectorAll(".panelPage")];
+      let idx = 0;
+
+      function show(panelId) {
+        pages.forEach((p) => p.classList.toggle("show", p.id === panelId));
+        sideButtons.forEach((b) =>
+          b.classList.toggle("active", b.dataset.panel === panelId),
+        );
+        idx = Math.max(
+          0,
+          sideButtons.findIndex((b) => b.dataset.panel === panelId),
+        );
+      }
+
+      sideButtons.forEach((b) =>
+        b.addEventListener("click", () => show(b.dataset.panel)),
+      );
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          idx = (idx + 1) % sideButtons.length;
+          show(sideButtons[idx].dataset.panel);
+        }
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+          idx = (idx - 1 + sideButtons.length) % sideButtons.length;
+          show(sideButtons[idx].dataset.panel);
+        }
+        if (e.key === "Escape" || e.key === "Backspace") {
+          e.preventDefault();
+          window.location.href = "/tv-ps2/index.html";
+        }
+      });
+
+      // default
+      show("thanks");
+    </script>
+  </body>
+</html>

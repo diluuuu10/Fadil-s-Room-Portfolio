@@ -1,0 +1,598 @@
+:root {
+  --ink: rgba(220, 240, 255, 0.92);
+  --muted: rgba(185, 210, 235, 0.65);
+  --line2: rgba(120, 180, 255, 0.14);
+
+  --bg1: #03050a;
+  --bg2: #050a18;
+
+  --radius: 18px;
+  --shadow: 0 14px 55px rgba(0, 0, 0, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Arial;
+  color: var(--ink);
+  overflow: hidden;
+  background:
+    radial-gradient(
+      1200px 800px at 60% 35%,
+      rgba(70, 120, 255, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 600px at 30% 60%,
+      rgba(140, 70, 255, 0.1),
+      transparent 60%
+    ),
+    linear-gradient(180deg, var(--bg2), var(--bg1));
+}
+
+/* background layer */
+.bg {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(
+      900px 600px at 70% 30%,
+      rgba(90, 160, 255, 0.12),
+      transparent 60%
+    ),
+    radial-gradient(
+      700px 520px at 25% 70%,
+      rgba(170, 90, 255, 0.1),
+      transparent 65%
+    );
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+.bg::before,
+.bg::after {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(120, 180, 255, 0.05) 0 1px,
+      transparent 1px 90px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(120, 180, 255, 0.035) 0 1px,
+      transparent 1px 75px
+    );
+  opacity: 0.2;
+  transform: rotate(-8deg);
+  animation: drift 18s linear infinite;
+}
+
+.bg::after {
+  opacity: 0.12;
+  filter: blur(1px);
+  animation-duration: 28s;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(-2%, -2%, 0) rotate(-8deg);
+  }
+  to {
+    transform: translate3d(2%, 2%, 0) rotate(-8deg);
+  }
+}
+
+/* UI overlay */
+.ps2-ui {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 64px 1fr 64px;
+  pointer-events: none;
+}
+
+.ps2-ui header,
+.ps2-ui main,
+.ps2-ui footer,
+.ps2-ui button {
+  pointer-events: auto;
+}
+
+/* top bar */
+.topbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--line2);
+  background: linear-gradient(
+    180deg,
+    rgba(10, 18, 40, 0.55),
+    rgba(10, 18, 40, 0.18)
+  );
+  backdrop-filter: blur(10px);
+}
+
+.top-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.top-left .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(160, 220, 255, 0.9);
+  box-shadow: 0 0 18px rgba(140, 220, 255, 0.55);
+}
+
+.top-text {
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top-center {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(15, 25, 55, 0.45);
+  border: 1px solid rgba(120, 180, 255, 0.15);
+}
+
+.chipText {
+  font-size: 13px;
+  color: rgba(220, 240, 255, 0.78);
+}
+
+.top-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clock {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+  color: rgba(220, 240, 255, 0.75);
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(15, 25, 55, 0.35);
+  border: 1px solid rgba(120, 180, 255, 0.12);
+}
+
+/* center stage */
+.stage--center {
+  display: grid;
+  place-items: center;
+  padding: 28px 22px;
+}
+
+.centerPanel {
+  width: min(980px, 94vw);
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+}
+
+/* icon row panel */
+.iconRow {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+
+  padding: 22px 22px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(120, 180, 255, 0.1);
+  background: rgba(8, 12, 24, 0.28);
+  box-shadow: 0 0 0 1px rgba(120, 180, 255, 0.06) inset;
+
+  overflow: visible; /* allows scaled tile to pop out */
+}
+
+/* ----------------------------
+   TILE CARDS (whole thing scales)
+----------------------------- */
+.item {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+
+  width: 160px;
+  height: 150px;
+
+  display: grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  align-items: center;
+
+  border-radius: 22px;
+  padding: 18px 14px 16px;
+
+  transform: scale(0.9);
+  opacity: 0.75;
+
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.item .iconWrap {
+  width: 78px;
+  height: 78px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(120, 180, 255, 0.14);
+  background: rgba(14, 22, 50, 0.28);
+  box-shadow: 0 0 0 1px rgba(120, 180, 255, 0.06) inset;
+}
+
+.item img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(120, 200, 255, 0.18));
+  opacity: 0.9;
+}
+
+.item .cap {
+  margin-top: 10px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(220, 240, 255, 0.55);
+}
+
+/* ACTIVE TILE */
+.item.active,
+.item:focus-visible {
+  transform: scale(1.24);
+  opacity: 1;
+
+  background: rgba(12, 20, 46, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(160, 230, 255, 0.22) inset,
+    0 0 34px rgba(120, 200, 255, 0.2);
+}
+
+.item.active .iconWrap,
+.item:focus-visible .iconWrap {
+  width: 100px;
+  height: 100px;
+  border-radius: 24px;
+
+  border-color: rgba(170, 240, 255, 0.38);
+  box-shadow:
+    0 0 0 1px rgba(170, 240, 255, 0.18) inset,
+    0 0 22px rgba(120, 200, 255, 0.25);
+}
+
+.item.active img,
+.item:focus-visible img {
+  width: 66px;
+  height: 66px;
+  opacity: 1;
+  filter: drop-shadow(0 0 18px rgba(140, 220, 255, 0.35));
+}
+
+.item.active .cap,
+.item:focus-visible .cap {
+  color: rgba(230, 250, 255, 0.92);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+}
+
+/* hover for non-active */
+.item:not(.active):hover {
+  transform: scale(0.96);
+  opacity: 0.92;
+}
+
+/* title under row */
+.titleBlock--center {
+  width: 100%;
+  text-align: left;
+  padding: 4px 6px;
+}
+
+.bigTitle {
+  font-size: 46px;
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 22px rgba(120, 200, 255, 0.2);
+}
+
+.subTitle {
+  margin-top: 8px;
+  color: rgba(185, 210, 235, 0.7);
+  font-size: 15px;
+}
+
+/* bottom bar */
+.bottombar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+  border-top: 1px solid var(--line2);
+  background: linear-gradient(
+    0deg,
+    rgba(10, 18, 40, 0.55),
+    rgba(10, 18, 40, 0.18)
+  );
+  backdrop-filter: blur(10px);
+}
+
+.bottom-left,
+.bottom-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.kbd {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  padding: 6px 9px;
+  border-radius: 10px;
+  background: rgba(15, 25, 55, 0.45);
+  border: 1px solid rgba(120, 180, 255, 0.14);
+  color: rgba(230, 250, 255, 0.78);
+}
+
+.muted {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* responsive */
+@media (max-width: 920px) {
+  .iconRow {
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+  .item {
+    width: 150px;
+  }
+  .bigTitle {
+    font-size: 38px;
+  }
+}
+
+/* =========================
+   ABOUT PAGE LAYOUT
+========================= */
+.stage--page {
+  display: grid;
+  place-items: center;
+  padding: 22px;
+}
+
+.pageWrap {
+  width: min(1100px, 94vw);
+  height: min(600px, 72vh);
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+}
+
+.sideNav {
+  border-radius: var(--radius);
+  border: 1px solid rgba(120, 180, 255, 0.12);
+  background: rgba(8, 12, 24, 0.2);
+  box-shadow: 0 0 0 1px rgba(120, 180, 255, 0.05) inset;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sideItem {
+  appearance: none;
+  border: 1px solid rgba(120, 180, 255, 0.1);
+  background: rgba(15, 25, 55, 0.2);
+  color: rgba(220, 240, 255, 0.75);
+  border-radius: 14px;
+  padding: 12px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: 160ms ease;
+}
+
+.sideItem:hover {
+  background: rgba(15, 25, 55, 0.32);
+  color: rgba(230, 250, 255, 0.88);
+}
+
+.sideItem.active {
+  background: rgba(12, 20, 46, 0.55);
+  border-color: rgba(160, 230, 255, 0.22);
+  box-shadow: 0 0 28px rgba(120, 200, 255, 0.16);
+  color: rgba(230, 250, 255, 0.95);
+}
+
+.sideHint {
+  margin-top: auto;
+  color: rgba(185, 210, 235, 0.65);
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.panel {
+  border-radius: var(--radius);
+  border: 1px solid rgba(120, 180, 255, 0.12);
+  background: rgba(8, 12, 24, 0.2);
+  box-shadow: 0 0 0 1px rgba(120, 180, 255, 0.05) inset;
+  padding: 18px 18px;
+  overflow: auto;
+}
+
+.panelPage {
+  display: none;
+}
+.panelPage.show {
+  display: block;
+}
+
+.pageTitle {
+  font-size: 40px;
+  font-weight: 300;
+  margin: 6px 0 10px;
+  text-shadow: 0 0 22px rgba(120, 200, 255, 0.18);
+}
+
+.pageLead {
+  color: rgba(185, 210, 235, 0.75);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 70ch;
+  margin: 0 0 14px;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card {
+  border: 1px solid rgba(120, 180, 255, 0.12);
+  background: rgba(15, 25, 55, 0.22);
+  border-radius: 16px;
+  padding: 14px 14px;
+  box-shadow: 0 0 0 1px rgba(120, 180, 255, 0.05) inset;
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(230, 250, 255, 0.82);
+}
+
+.card p {
+  margin: 0;
+  color: rgba(185, 210, 235, 0.7);
+  line-height: 1.6;
+  font-size: 13px;
+}
+
+.list {
+  margin: 8px 0 0 18px;
+  color: rgba(185, 210, 235, 0.7);
+}
+.list li {
+  margin: 6px 0;
+}
+
+@media (max-width: 880px) {
+  .pageWrap {
+    grid-template-columns: 1fr;
+    height: min(680px, 78vh);
+  }
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== ABOUT PAGE: profile card ===== */
+.profileCard {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.mePic {
+  width: 110px;
+  height: 110px;
+  border-radius: 18px;
+  object-fit: cover;
+
+  border: 1px solid rgba(170, 240, 255, 0.25);
+  box-shadow:
+    0 0 0 1px rgba(120, 180, 255, 0.06) inset,
+    0 0 22px rgba(120, 200, 255, 0.12);
+}
+
+.meLine {
+  margin-top: 6px;
+}
+
+/* ===== CONTACT PAGE extras ===== */
+.contactWrap {
+  /* same layout as about, just keeps naming clear */
+}
+
+.bigLink a {
+  font-size: 16px;
+  color: rgba(210, 245, 255, 0.9);
+  text-decoration: none;
+}
+.bigLink a:hover {
+  text-decoration: underline;
+}
+
+.smallText {
+  margin-top: 8px;
+  color: rgba(185, 210, 235, 0.65);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.msgBox {
+  margin: 12px 0 0;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(120, 180, 255, 0.12);
+  background: rgba(10, 14, 30, 0.35);
+  color: rgba(220, 240, 255, 0.8);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow: auto;
+}
+.smallText {
+  margin-top: 8px;
+  color: rgba(185, 210, 235, 0.65);
+  font-size: 12px;
+  line-height: 1.5;
+}

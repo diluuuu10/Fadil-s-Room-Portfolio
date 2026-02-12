@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Room95 • Desktop</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <main
+      class="desktop"
+      id="desktop"
+      role="application"
+      aria-label="Room95 Desktop"
+    >
+      <!-- Desktop icons -->
+      <div class="icons">
+        <button class="icon" data-open="explorer" aria-label="Open My Computer">
+          <span class="iconPic">🖥️</span>
+          <span class="iconTxt">My Computer</span>
+        </button>
+
+        <button class="icon" data-open="notes" aria-label="Open Notepad">
+          <span class="iconPic">📝</span>
+          <span class="iconTxt">Notepad</span>
+        </button>
+
+        <button
+          class="icon"
+          data-open="internet"
+          aria-label="Open Internet Explorer"
+        >
+          <span class="iconPic">🌐</span>
+          <span class="iconTxt">Internet</span>
+        </button>
+
+        <!-- Fake Amazon shortcut -->
+        <button class="icon" data-amazon aria-label="Open Amazön 1999">
+          <span class="iconPic">🛒</span>
+          <span class="iconTxt">Amazön</span>
+        </button>
+      </div>
+
+      <!-- Explorer -->
+      <section
+        class="win hidden"
+        id="win-explorer"
+        data-win="explorer"
+        style="left: 6%; top: 12%; width: 560px; height: 420px"
+      >
+        <header class="winbar" data-drag>
+          <div class="wintitle">My Computer</div>
+          <div class="winbtns">
+            <button class="winbtn" data-min title="Minimize">_</button>
+            <button class="winbtn" data-max title="Maximize">▢</button>
+            <button class="winbtn close" data-close title="Close">✕</button>
+          </div>
+        </header>
+        <div class="winbody">
+          <div class="path">C:\</div>
+          <div class="grid" id="explorerGrid"></div>
+          <div class="status">Tip: double-click amazön.url</div>
+        </div>
+      </section>
+
+      <!-- Notepad -->
+      <section
+        class="win hidden"
+        id="win-notes"
+        data-win="notes"
+        style="left: 44%; top: 16%; width: 520px; height: 420px"
+      >
+        <header class="winbar" data-drag>
+          <div class="wintitle">Notepad</div>
+          <div class="winbtns">
+            <button class="winbtn" data-min title="Minimize">_</button>
+            <button class="winbtn" data-max title="Maximize">▢</button>
+            <button class="winbtn close" data-close title="Close">✕</button>
+          </div>
+        </header>
+        <div class="winbody">
+          <div class="row">
+            <input class="input" id="noteTitle" value="Ideas.txt" />
+            <button class="btn" id="saveNote">Save</button>
+          </div>
+          <textarea class="textarea" id="noteBody" spellcheck="false">
+- TV click -> focus camera
+- Add furniture picker
+</textarea
+          >
+          <div class="status" id="noteStatus">Autosaves locally.</div>
+        </div>
+      </section>
+
+      <!-- Internet Explorer -->
+      <section
+        class="win hidden"
+        id="win-internet"
+        data-win="internet"
+        style="left: 18%; top: 22%; width: 720px; height: 480px"
+      >
+        <header class="winbar" data-drag>
+          <div class="wintitle">Internet Explorer</div>
+          <div class="winbtns">
+            <button class="winbtn" data-min title="Minimize">_</button>
+            <button class="winbtn" data-max title="Maximize">▢</button>
+            <button class="winbtn close" data-close title="Close">✕</button>
+          </div>
+        </header>
+
+        <div class="winbody ie">
+          <div class="ieToolbar">
+            <button class="btn sm" data-amazon>Open Amazön</button>
+
+            <div class="ieAddr">
+              <span class="lbl">Address</span>
+              <input class="addr" id="addr" value="about:blank" readonly />
+            </div>
+          </div>
+
+          <!-- This area will be replaced by the Amazon iframe -->
+          <div class="iePage" id="iePage">
+            <div class="ieHero">
+              <div class="badge">Connected ✅</div>
+              <h2>Welcome to the Internet (1998)</h2>
+              <p>Click “Open Amazön” to buy 5 iconic items.</p>
+            </div>
+          </div>
+
+          <div class="status"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Start Menu -->
+    <aside class="startMenu" id="startMenu" aria-hidden="true">
+      <div class="startHead">Room95</div>
+      <div class="startItems">
+        <button class="startItem" data-open="explorer">🖥️ My Computer</button>
+        <button class="startItem" data-open="notes">📝 Notepad</button>
+        <button class="startItem" data-open="internet">🌐 Internet</button>
+        <div class="sep"></div>
+        <button class="startItem" id="shutdownBtn">⏻ Shut Down…</button>
+      </div>
+    </aside>
+
+    <!-- Taskbar -->
+    <footer class="taskbar" role="contentinfo" aria-label="Taskbar">
+      <button class="startBtn" id="startBtn" aria-label="Start menu">
+        <span class="startFlag">▦</span> Start
+      </button>
+
+      <div class="quicklaunch" aria-label="Quick Launch">
+        <button class="tbIcon" data-open="explorer" title="My Computer">
+          🖥️
+        </button>
+        <button class="tbIcon" data-open="notes" title="Notepad">📝</button>
+        <button class="tbIcon" data-amazon title="Amazön 1999">🛒</button>
+        <button class="tbIcon" data-open="internet" title="Internet">🌐</button>
+      </div>
+
+      <div class="tasks" id="tasks" aria-label="Open windows"></div>
+
+      <div class="tray" aria-label="System tray">
+        <span class="trayChip">🔊</span>
+        <span class="trayChip">📶</span>
+        <span class="clock" id="clock">--:--</span>
+      </div>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

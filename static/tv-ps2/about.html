@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TV Portfolio • About</title>
+    <link rel="stylesheet" href="./assets/ps2.css" />
+  </head>
+
+  <body>
+    <div class="bg" aria-hidden="true"></div>
+
+    <div class="ps2-ui" role="application" aria-label="PS2 About Screen">
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <div class="top-left">
+          <span class="dot"></span>
+          <span class="top-text">About Me</span>
+        </div>
+
+        <div class="top-center">
+          <span class="chip">
+            <span class="chipIcon">👤</span>
+            <span class="chipText">User Name</span>
+          </span>
+
+          <span class="chip">
+            <span class="chipIcon">🏆</span>
+            <span class="chipText">123</span>
+          </span>
+        </div>
+
+        <div class="top-right">
+          <span class="clock" id="clock">--:--</span>
+        </div>
+      </header>
+
+      <!-- MAIN -->
+      <main class="stage stage--page">
+        <section class="pageWrap">
+          <!-- left mini nav -->
+          <aside class="sideNav">
+            <button class="sideItem active" type="button" data-panel="overview">
+              Overview
+            </button>
+            <button class="sideItem" type="button" data-panel="skills">
+              Skills
+            </button>
+            <button class="sideItem" type="button" data-panel="tools">
+              Tools
+            </button>
+            <button class="sideItem" type="button" data-panel="goals">
+              Goals
+            </button>
+
+            <div class="sideHint">
+              <div><span class="kbd">↑ ↓</span> Move</div>
+              <div><span class="kbd">Esc</span> Home</div>
+            </div>
+          </aside>
+
+          <!-- content -->
+          <section class="panel">
+            <!-- Panel: Overview -->
+            <div class="panelPage show" id="overview">
+              <h1 class="pageTitle">About Me</h1>
+              <p class="pageLead">
+                I build interactive web experiences that blend clean UI with
+                real-time 3D
+              </p>
+
+              <div class="cardGrid">
+                <!-- PROFILE CARD (with photo) -->
+                <div class="card profileCard">
+                  <img class="mePic" src="./assets/me.jpg" alt="Portrait" />
+                  <div>
+                    <h2>Profile</h2>
+                    <p class="meLine">
+                      React Developer • 3D Web (Three.js/WebGL) • MERN Stack
+                    </p>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <h2>What I do</h2>
+                  <p>
+                    I build React UIs, Three.js scenes, and smooth camera
+                    navigation — and use MERN when a project needs APIs, auth,
+                    or data..
+                  </p>
+                </div>
+
+                <div class="card">
+                  <h2>What I’m building</h2>
+                  <p>
+                    This interactive room portfolio — click objects, zoom in,
+                    and open content naturally (like this TV).
+                  </p>
+                </div>
+
+                <!-- <div class="card">
+                  <h2>Currently focused on</h2>
+                  <p>
+                    Better shaders, cleaner UI, and making the portfolio feel
+                    “console smooth”.
+                  </p>
+                </div> -->
+              </div>
+            </div>
+
+            <!-- Panel: Skills -->
+            <div class="panelPage" id="skills">
+              <h1 class="pageTitle">Skills</h1>
+
+              <div class="cardGrid">
+                <div class="card">
+                  <h2>Frontend</h2>
+                  <ul class="list">
+                    <li>HTML • CSS • JavaScript</li>
+                    <li>React • Next.js</li>
+                  </ul>
+                </div>
+
+                <div class="card">
+                  <h2>3D / Graphics</h2>
+                  <ul class="list">
+                    <li>Three.js • WebGL</li>
+                    <li>Shader Programming (GLSL)</li>
+                  </ul>
+                </div>
+
+                <div class="card">
+                  <h2>Backend</h2>
+                  <ul class="list">
+                    <li>Node.js • Express.js</li>
+                  </ul>
+                </div>
+
+                <div class="card">
+                  <h2>Databases</h2>
+                  <ul class="list">
+                    <li>MongoDB • SQL</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel: Tools -->
+            <div class="panelPage" id="tools">
+              <h1 class="pageTitle">Tools</h1>
+
+              <div class="cardGrid">
+                <div class="card">
+                  <h2>Blender</h2>
+                  <p>Modeling, UVs, texture baking, export to GLTF/GLB.</p>
+                </div>
+
+                <div class="card">
+                  <h2>Vite + Three.js</h2>
+                  <p>Fast dev setup for interactive 3D experiences.</p>
+                </div>
+
+                <div class="card">
+                  <h2>Git / GitHub</h2>
+                  <p>Version control and portfolio repositories.</p>
+                </div>
+
+                <div class="card">
+                  <h2>Node Tooling</h2>
+                  <p>
+                    Build scripts, small servers, API integration when needed.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel: Goals -->
+            <div class="panelPage" id="goals">
+              <h1 class="pageTitle">Goals</h1>
+
+              <div class="card">
+                <h2>Short term</h2>
+                <ul class="list">
+                  <li>Finish TV pages (About/Experience/Contact/Credits)</li>
+                  <li>Add 2–3 projects with images + links</li>
+                  <li>Improve loading + smoothness</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <h2>Long term</h2>
+                <ul class="list">
+                  <li>Work on interactive web / 3D UI projects</li>
+                  <!-- <li>Build more “world-style” portfolios</li> -->
+                </ul>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <!-- BOTTOM BAR -->
+      <footer class="bottombar">
+        <div class="bottom-left">
+          <span class="kbd">Esc</span>
+          <span class="muted">Back to Home</span>
+        </div>
+
+        <div class="bottom-right">
+          <span class="kbd">↑ ↓</span><span class="muted">Sections</span>
+          <span class="kbd">Enter</span><span class="muted">Open</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // clock
+      const clockEl = document.getElementById("clock");
+      function tick() {
+        const d = new Date();
+        clockEl.textContent =
+          String(d.getHours()).padStart(2, "0") +
+          ":" +
+          String(d.getMinutes()).padStart(2, "0");
+      }
+      tick();
+      setInterval(tick, 10000);
+
+      // side nav switching
+      const sideButtons = [...document.querySelectorAll(".sideItem")];
+      const pages = [...document.querySelectorAll(".panelPage")];
+      let idx = 0;
+
+      function show(panelId) {
+        pages.forEach((p) => p.classList.toggle("show", p.id === panelId));
+        sideButtons.forEach((b) =>
+          b.classList.toggle("active", b.dataset.panel === panelId),
+        );
+        idx = Math.max(
+          0,
+          sideButtons.findIndex((b) => b.dataset.panel === panelId),
+        );
+      }
+
+      sideButtons.forEach((b) =>
+        b.addEventListener("click", () => show(b.dataset.panel)),
+      );
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          idx = (idx + 1) % sideButtons.length;
+          show(sideButtons[idx].dataset.panel);
+        }
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+          idx = (idx - 1 + sideButtons.length) % sideButtons.length;
+          show(sideButtons[idx].dataset.panel);
+        }
+        if (e.key === "Escape" || e.key === "Backspace") {
+          e.preventDefault();
+          window.location.href = "/tv-ps2/index.html";
+        }
+      });
+
+      // default
+      show("overview");
+    </script>
+  </body>
+</html>

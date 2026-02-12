@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TV Portfolio • PS2 Home</title>
+    <link rel="stylesheet" href="./assets/ps2.css" />
+  </head>
+
+  <body>
+
+    <!-- Night mode toggle -->
+<button id="nightToggle" class="themeBtn" aria-label="Toggle night mode" type="button">
+  <span class="icon sun" aria-hidden="true">☀️</span>
+  <span class="icon moon" aria-hidden="true">🌙</span>
+</button>
+
+    <!-- If you have your Three.js canvas, keep it behind the UI -->
+    <!-- <canvas id="experience-canvas"></canvas> -->
+
+    <!-- PS2-ish animated background layer -->
+    <div class="bg" aria-hidden="true"></div>
+
+    <!-- UI OVERLAY -->
+    <div
+      class="ps2-ui"
+      role="application"
+      aria-label="PS2 Style Portfolio Menu"
+    >
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <div class="top-left">
+          <span class="dot"></span>
+          <span class="top-text">Notifications</span>
+        </div>
+
+        <div class="top-center">
+          <span class="chip">
+            <span class="chipIcon">👤</span>
+            <span class="chipText">Fadilplays</span>
+          </span>
+
+          <span class="chip">
+            <span class="chipIcon">🏆</span>
+            <span class="chipText">999</span>
+          </span>
+        </div>
+
+        <div class="top-right">
+          <span class="clock" id="clock">--:--</span>
+        </div>
+      </header>
+
+      <!-- MAIN (center-only; active icon scales up) -->
+      <main class="stage stage--center">
+        <section class="centerPanel">
+          <nav class="iconRow" id="iconRow" aria-label="Menu">
+            <button
+              class="item"
+              type="button"
+              data-title="About Me"
+              data-sub="Profile & skills"
+              data-link="./about.html"
+              data-icon="./assets/icons/about.png"
+            >
+              <span class="iconWrap">
+                <img src="./assets/icons/about.jpg" alt="About" />
+              </span>
+              <span class="cap">ABOUT</span>
+            </button>
+
+            <button
+              class="item active"
+              type="button"
+              data-title="Experience"
+              data-sub="Projects & work"
+              data-link="./experience.html"
+              data-icon="./assets/icons/experience.png"
+            >
+              <span class="iconWrap">
+                <img src="./assets/icons/resume.jpg" alt="Experience" />
+              </span>
+              <span class="cap">Resume </span>
+            </button>
+
+            <button
+              class="item"
+              type="button"
+              data-title="Contact"
+              data-sub="Email & socials"
+              data-link="./contact.html"
+              data-icon="./assets/icons/contact.png"
+            >
+              <span class="iconWrap">
+                <img src="./assets/icons/contact.jpg" alt="Contact" />
+              </span>
+              <span class="cap">CONTACT</span>
+            </button>
+
+            <button
+              class="item"
+              type="button"
+              data-title="Credits"
+              data-sub="Thanks & resources"
+              data-link="./credits.html"
+              data-icon="./assets/icons/credits.png"
+            >
+              <span class="iconWrap">
+                <img src="./assets/icons/credits.jpg" alt="" />
+              </span>
+              <span class="cap">CREDITS</span>
+            </button>
+          </nav>
+
+          <div class="titleBlock titleBlock--center" aria-live="polite">
+            <div class="bigTitle" id="bigTitle">Experience</div>
+            <div class="subTitle" id="subTitle">Projects &amp; work</div>
+          </div>
+        </section>
+      </main>
+
+      <!-- BOTTOM BAR -->
+      <footer class="bottombar">
+        <div class="bottom-left">
+          <span class="kbd">OPTIONS</span>
+          <span class="muted">Options Menu</span>
+        </div>
+
+        <div class="bottom-right">
+          <span class="kbd">← →</span><span class="muted">Move</span>
+          <span class="kbd">Enter</span><span class="muted">Open</span>
+          <span class="kbd">Esc</span><span class="muted">Back</span>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./assets/ps2.js" defer></script>
+  </body>
+</html>

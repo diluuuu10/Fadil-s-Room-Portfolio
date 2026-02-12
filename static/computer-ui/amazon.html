@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amazon • Instant Delivery</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "MS Sans Serif", Tahoma, Verdana, Arial, sans-serif;
+        background: #dcdcdc;
+        color: #000;
+      }
+
+      .page {
+        max-width: 760px;
+        margin: 14px auto;
+        background: #ffffff;
+        border: 2px solid #000;
+      }
+
+      .top {
+        background: #003399;
+        color: #fff;
+        padding: 10px;
+        border-bottom: 2px solid #000;
+      }
+      .brandRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .logo {
+        font-weight: 900;
+        letter-spacing: 0.4px;
+        font-size: 20px;
+      }
+      .tag {
+        font-size: 12px;
+        background: #ffff00;
+        color: #000;
+        padding: 2px 6px;
+        border: 1px solid #000;
+        white-space: nowrap;
+      }
+      .sub {
+        margin-top: 6px;
+        font-size: 12px;
+        opacity: 0.95;
+      }
+
+      .wrap {
+        padding: 12px;
+      }
+
+      .instant {
+        background: #00ff66;
+        border: 2px solid #000;
+        padding: 10px;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+      .instant b {
+        font-size: 13px;
+      }
+      .blink {
+        animation: blink 0.9s steps(2, end) infinite;
+        font-weight: 900;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      table.grid {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .grid th,
+      .grid td {
+        border: 1px solid #000;
+        padding: 8px;
+        font-size: 12px;
+        vertical-align: top;
+      }
+      .grid th {
+        background: #e6e6e6;
+        text-align: left;
+      }
+
+      .pTitle {
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .muted {
+        color: #333;
+        font-size: 11px;
+      }
+      .price {
+        font-weight: 900;
+        white-space: nowrap;
+      }
+      .badgeNew {
+        display: inline-block;
+        margin-left: 6px;
+        padding: 1px 6px;
+        background: #ff0000;
+        color: #fff;
+        border: 1px solid #000;
+        font-size: 11px;
+      }
+
+      .btn {
+        padding: 6px 10px;
+        font-size: 12px;
+        background: #c0c0c0;
+        border-top: 2px solid #fff;
+        border-left: 2px solid #fff;
+        border-right: 2px solid #404040;
+        border-bottom: 2px solid #404040;
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .btn:active {
+        border-top: 2px solid #404040;
+        border-left: 2px solid #404040;
+        border-right: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+      }
+
+      .footer {
+        padding: 10px 12px 12px;
+        font-size: 11px;
+        color: #333;
+        border-top: 1px solid #000;
+        background: #f2f2f2;
+      }
+
+      .btn.danger {
+        background: #b00020;
+        border-color: #55000f;
+        color: #fff;
+      }
+      .btn.danger:active {
+        transform: translateY(1px);
+      }
+
+      .hidden {
+        display: none !important;
+      }
+      .owned .pTitle::after {
+        content: "  (OWNED)";
+        color: #006400;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="top">
+        <div class="brandRow">
+          <div class="logo">Amazön </div>
+          <div class="tag">SECURE BUY BUTTON!</div>
+        </div>
+        <div class="sub">Only 5 items. One-click BUY. No real payments.</div>
+      </div>
+
+      <div class="wrap">
+        <div class="instant">
+          <b>🚀 INSTANT DELIVERY</b> — arrive in
+          <span class="blink">0.2 seconds</span> (internet magic)
+        </div>
+
+        <table class="grid">
+          <thead>
+            <tr>
+              <th style="width: 62%">Item</th>
+              <th style="width: 16%">Price</th>
+              <th style="width: 22%">Buy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="pTitle">Official Soccer aka footBall</div>
+                <div class="muted">Smells like PE class.</div>
+              </td>
+              <td class="price">$29.99</td>
+              <td>
+                <button class="btn" data-buy="Ball">BUY</button>
+                <button class="btn danger hidden" data-sell="Ball">
+                  SELL
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="pTitle">Studio Stool </div>
+                <div class="muted">Perfect for late-night coding.</div>
+              </td>
+              <td class="price">$44.50</td>
+              <td>
+                <button class="btn" data-buy="Stool">BUY</button>
+                <button class="btn danger hidden" data-sell="Stool">
+                  SELL
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="pTitle">Retro Bike </div>
+                <div class="muted">For cool hallway rides.</div>
+              </td>
+              <td class="price">$199.95</td>
+              <td>
+                <button class="btn" data-buy="Bike">BUY</button>
+                <button class="btn danger hidden" data-sell="Bike">SELL</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="pTitle">Iron Barbell Set</div>
+                <div class="muted">Get those gains </div>
+              </td>
+              <td class="price">$89.00</td>
+              <td>
+                <button class="btn" data-buy="Barbell">BUY</button>
+                <button class="btn danger hidden" data-sell="Barbell">
+                  SELL
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="pTitle">
+                  Russian Rocket  <span class="badgeNew">NEW!</span>
+                </div>
+                <div class="muted">Totally safe. Probably.</div>
+              </td>
+              <td class="price">$59.75</td>
+              <td>
+                <button class="btn" data-buy="Rocket">BUY</button>
+                <button class="btn danger hidden" data-sell="Rocket">
+                  SELL
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="footer">
+        ©  Amazön (Totally Not Real).
+      </div>
+    </div>
+
+    <script>
+      // Simple owned-state for this page only
+      const owned = new Set();
+
+      function setRowOwned(item, isOwned) {
+        const buyBtn = document.querySelector(`[data-buy="${item}"]`);
+        const sellBtn = document.querySelector(`[data-sell="${item}"]`);
+        const row = buyBtn?.closest("tr") || sellBtn?.closest("tr");
+        if (sellBtn) sellBtn.classList.toggle("hidden", !isOwned);
+        if (buyBtn) buyBtn.disabled = isOwned; // prevent double-buy spam
+        if (row) row.classList.toggle("owned", isOwned);
+      }
+
+      document.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-buy], [data-sell]");
+        if (!btn) return;
+
+        const isBuy = !!btn.dataset.buy;
+        const item = isBuy ? btn.dataset.buy : btn.dataset.sell;
+
+        // Gate: SELL only after BUY
+        if (!isBuy && !owned.has(item)) return;
+
+        const action = isBuy ? "show" : "hide";
+
+        const payload = {
+          __room95: true,
+          type: "ROOM95_SHOP",
+          action, // show | hide
+          item, // Rocket | Ball | Stool | Bike | Barbell
+        };
+
+        try {
+          window.parent?.postMessage(payload, "*");
+          window.parent?.parent?.postMessage(payload, "*");
+        } catch {}
+
+        if (isBuy) {
+          owned.add(item);
+          setRowOwned(item, true);
+          alert(
+            `✅ PURCHASED: ${item}\n\nINSTANT DELIVERY ACTIVATED 🚀\n(pretend it arrived on your desk)`,
+          );
+        } else {
+          owned.delete(item);
+          setRowOwned(item, false);
+          alert(
+            `🧾 SOLD: ${item}\n\nITEM REMOVED FROM ROOM ✅\n(it is now hidden)`,
+          );
+        }
+      });
+
+      // initial: SELL hidden
+      ["Rocket", "Ball", "Stool", "Bike", "Barbell"].forEach((i) =>
+        setRowOwned(i, false),
+      );
+    </script>
+  </body>
+</html>

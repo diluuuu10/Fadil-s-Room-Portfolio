@@ -1,0 +1,248 @@
+x<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TV Portfolio • Contact</title>
+    <link rel="stylesheet" href="./assets/ps2.css" />
+  </head>
+
+  <body>
+    <div class="bg" aria-hidden="true"></div>
+
+    <div class="ps2-ui" role="application" aria-label="PS2 Contact Screen">
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <div class="top-left">
+          <span class="dot"></span>
+          <span class="top-text">Contact</span>
+        </div>
+
+        <div class="top-center">
+          <span class="chip">
+            <span class="chipIcon">👤</span>
+            <span class="chipText">User Name</span>
+          </span>
+
+          <span class="chip">
+            <span class="chipIcon">🏆</span>
+            <span class="chipText">123</span>
+          </span>
+        </div>
+
+        <div class="top-right">
+          <span class="clock" id="clock">--:--</span>
+        </div>
+      </header>
+
+      <!-- MAIN -->
+      <main class="stage stage--page">
+        <section class="pageWrap contactWrap">
+          <!-- left mini nav -->
+          <aside class="sideNav">
+            <button class="sideItem active" type="button" data-panel="quick">
+              Quick
+            </button>
+            <button class="sideItem" type="button" data-panel="socials">
+              Socials
+            </button>
+            <button class="sideItem" type="button" data-panel="message">
+              Message
+            </button>
+
+            <div class="sideHint">
+              <div><span class="kbd">↑ ↓</span> Move</div>
+              <div><span class="kbd">Esc</span> Home</div>
+            </div>
+          </aside>
+
+          <!-- content -->
+          <section class="panel">
+            <!-- QUICK -->
+            <div class="panelPage show" id="quick">
+              <h1 class="pageTitle">Contact</h1>
+              <p class="pageLead">Fast ways to reach me.</p>
+
+              <div class="cardGrid">
+                <div class="card">
+                  <h2>Email</h2>
+                  <p class="bigLink">
+                    <a href="mailto:youremail@example.com"
+                      >fadilnoushad@gmail.com</a
+                    >
+                  </p>
+                  <p class="smallText">Best for work / collaborations.</p>
+                </div>
+
+                <div class="card">
+                  <h2>Location</h2>
+                  <p>Adelaide / Remote</p>
+                  <p class="smallText">
+                    Available for internships + freelance.
+                  </p>
+                </div>
+
+                <div class="card">
+                  <h2>Resume</h2>
+                  <p class="bigLink">
+                    <a
+                      href="https://example.com/resume.pdf"
+                      target="_blank"
+                      rel="noreferrer"
+                      >Open Resume</a
+                    >
+                  </p>
+                  <p class="smallText">resume link.</p>
+                </div>
+
+                <div class="card">
+                  <h2>Availability</h2>
+                  <p>Open to projects.</p>
+                  <p class="smallText">I reply within 24–48 hours.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SOCIALS -->
+            <div class="panelPage" id="socials">
+              <h1 class="pageTitle">Socials</h1>
+              <p class="pageLead">Find my work and updates here.</p>
+
+              <div class="card">
+                <h2>Links</h2>
+                <ul class="list">
+                  <li>
+                    GitHub:
+                    <a
+                      href="https://github.com/diluuuu10"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      https://github.com/diluuuu10
+                    </a>
+                  </li>
+                  <li>
+                    LinkedIn:
+                    <a
+                      href="https://www.linkedin.com/in/fadilnoushad/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      https://www.linkedin.com/in/fadilnoushad/
+                    </a>
+                  </li>
+                  <li>
+                    Portfolio:
+                    <a
+                      href="https://your-site.com"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      your-site.com
+                    </a>
+                  </li>
+                </ul>
+                <p class="smallText"></p>
+              </div>
+            </div>
+
+            <!-- MESSAGE -->
+            <div class="panelPage" id="message">
+              <h1 class="pageTitle">Message</h1>
+              <p class="pageLead">
+                This is a simple “copy message” panel (static site).
+              </p>
+
+              <div class="card">
+                <h2>Quick Message Template</h2>
+                <p class="smallText">Copy/paste this into email or LinkedIn:</p>
+
+                <pre class="msgBox">
+Hey Fadil,
+I saw your portfolio and wanted to reach out about: [project / role].
+
+Timeline: [when]
+Details: [short summary]
+
+Best,
+[name]</pre
+                >
+
+                <p class="smallText">
+                  Press <b>Enter</b> on Email (Quick tab) to open your mail app.
+                </p>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <!-- BOTTOM BAR -->
+      <footer class="bottombar">
+        <div class="bottom-left">
+          <span class="kbd">Esc</span>
+          <span class="muted">Back to Home</span>
+        </div>
+
+        <div class="bottom-right">
+          <span class="kbd">↑ ↓</span><span class="muted">Sections</span>
+          <span class="kbd">Enter</span><span class="muted">Open</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // clock
+      const clockEl = document.getElementById("clock");
+      function tick() {
+        const d = new Date();
+        clockEl.textContent =
+          String(d.getHours()).padStart(2, "0") +
+          ":" +
+          String(d.getMinutes()).padStart(2, "0");
+      }
+      tick();
+      setInterval(tick, 10000);
+
+      // side nav switching
+      const sideButtons = [...document.querySelectorAll(".sideItem")];
+      const pages = [...document.querySelectorAll(".panelPage")];
+      let idx = 0;
+
+      function show(panelId) {
+        pages.forEach((p) => p.classList.toggle("show", p.id === panelId));
+        sideButtons.forEach((b) =>
+          b.classList.toggle("active", b.dataset.panel === panelId),
+        );
+        idx = Math.max(
+          0,
+          sideButtons.findIndex((b) => b.dataset.panel === panelId),
+        );
+      }
+
+      sideButtons.forEach((b) =>
+        b.addEventListener("click", () => show(b.dataset.panel)),
+      );
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          idx = (idx + 1) % sideButtons.length;
+          show(sideButtons[idx].dataset.panel);
+        }
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+          idx = (idx - 1 + sideButtons.length) % sideButtons.length;
+          show(sideButtons[idx].dataset.panel);
+        }
+        if (e.key === "Escape" || e.key === "Backspace") {
+          e.preventDefault();
+          window.location.href = "/tv-ps2/index.html";
+        }
+      });
+
+      // default
+      show("quick");
+    </script>
+  </body>
+</html>
