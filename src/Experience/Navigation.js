@@ -270,13 +270,7 @@ export default class Navigation {
 
   exitStage() {
     if (!this.home.saved) return;
-
-    // Allow the back/reset action both when we're already focused
-    // AND while the camera is still animating in.
-    if (this.state !== "focused" && this.state !== "entering") return;
-
-    // If the user hits back while switching stages, cancel any queued stage.
-    this.pendingStage = null;
+    if (this.state !== "focused") return;
 
     const dur =
       this.activeStage === "tv"

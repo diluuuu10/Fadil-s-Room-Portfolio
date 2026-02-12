@@ -412,13 +412,20 @@ body.is-night .themeInner .moon {
 }
 
 .resetIcon {
-  font-size: 22px; /* bigger icon */
+  font-size: 22px; 
   line-height: 1;
   filter: drop-shadow(0 0 12px rgba(0, 255, 220, 0.28))
     drop-shadow(0 0 12px rgba(255, 0, 200, 0.2));
 }
 
 .resetText {
-  font-size: 15px; /* bigger text */
+  font-size: 15px; 
   white-space: nowrap;
+}
+
+
+.resetCam.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
 }

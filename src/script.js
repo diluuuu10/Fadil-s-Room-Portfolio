@@ -45,8 +45,8 @@ experience.resources.on("ready", () => {
   });
 
   const sync = () => {
-    // ✅ show during entering + focused, hide only when fully idle
-    setResetVisible(nav.state !== "idle");
+    // ✅ show ONLY when fully focused
+    setResetVisible(nav.state === "focused");
     requestAnimationFrame(sync);
   };
 
