@@ -1,4 +1,4 @@
-# Three.js Journey
+MY 3D Room
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
