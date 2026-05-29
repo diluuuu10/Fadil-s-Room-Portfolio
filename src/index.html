@@ -7,17 +7,35 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <!-- Loading Screen -->
+    <!-- Loading Screen — Win95 boot style -->
     <div id="loader" class="loader" role="status" aria-live="polite">
-      <div class="loaderBg" aria-hidden="true"></div>
+      <!-- BIOS strip at top -->
+      <div class="loaderBios" aria-hidden="true">
+        <div class="loaderBiosLogo">
+          <span class="biosFlag">⊞</span>
+          <span class="biosBrand">Room<b>95</b></span>
+        </div>
+        <div class="loaderBiosText">
+          <div>Award Modular BIOS v4.51PG, An Energy Star Ally</div>
+          <div>Copyright (C) 1984-1999, Award Software, Inc.</div>
+        </div>
+      </div>
 
       <div class="loaderCard" aria-label="Loading">
-        <div class="loaderTitle">
-          <span class="loaderMark" aria-hidden="true">▶</span>
-          <span class="loaderName">MY Retro 3D room</span>
-          <span class="loaderSub">Loading</span>
+        <!-- Big Win95 splash logo -->
+        <div class="loaderLogo" aria-hidden="true">
+          <div class="loaderFlag">
+            <span class="flagQ red"></span><span class="flagQ green"></span>
+            <span class="flagQ blue"></span><span class="flagQ yellow"></span>
+          </div>
+          <div class="loaderBrand">
+            <span class="brandRoom">Room</span><span class="brandNum">95</span>
+          </div>
         </div>
 
+        <div class="loaderName">Starting Room95...</div>
+
+        <!-- Win95-style segmented progress bar -->
         <div class="loaderRow">
           <div class="loaderMeter" aria-label="Loading progress">
             <div id="loaderBar" class="loaderBar"></div>
@@ -25,7 +43,7 @@
           <div id="loaderPct" class="loaderPct">0%</div>
         </div>
 
-        <div id="loaderHint" class="loaderHint">Booting RoomOS…</div>
+        <div id="loaderHint" class="loaderHint">Booting RoomOS...</div>
 
         <button
           id="loaderStart"
@@ -33,12 +51,18 @@
           type="button"
           aria-hidden="true"
         >
-          Enter Room
+          ►  Enter Room
         </button>
 
         <div class="loaderFoot" aria-hidden="true">
-          Tip: press <kbd>Enter</kbd> to continue
+          Press <kbd>Enter</kbd> to continue
         </div>
+      </div>
+
+      <!-- Bottom hint strip -->
+      <div class="loaderBottom" aria-hidden="true">
+        <span class="loaderBlink">_</span>
+        <span class="loaderBottomText">Press DEL to enter SETUP, F12 for Boot Menu</span>
       </div>
     </div>
 

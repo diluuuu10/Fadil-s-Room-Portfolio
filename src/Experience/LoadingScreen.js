@@ -19,20 +19,20 @@ export default class LoadingScreen {
 
     // Default state
     this.setProgress(0);
-    this.setHint("Booting RoomOS…");
+    this.setHint("Initializing system...");
     this.setStartVisible(false);
 
     // Wire up progress
     this.resources?.on?.("progress", (e) => {
       const p = Math.max(0, Math.min(1, e?.progress ?? 0));
       this.setProgress(p);
-      if (e?.name) this.setHint(`Loading: ${e.name}`);
+      if (e?.name) this.setHint(`Loading ${e.name}...`);
     });
 
     // On ready: show "Enter" button
     this.resources?.on?.("ready", () => {
       this.setProgress(1);
-      this.setHint("Ready.");
+      this.setHint("System ready. Welcome to Room95.");
       this.setStartVisible(true);
     });
 

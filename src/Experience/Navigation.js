@@ -1,6 +1,8 @@
 // src/Experience/Navigation.js
 import * as THREE from "three";
 import Experience from "./Experience.js";
+import { isMobile } from "./Utilts/Device.js";
+import { showMobileOverlay } from "./Mobile/MobileOverlay.js";
 
 export default class Navigation {
   constructor() {
@@ -31,6 +33,7 @@ export default class Navigation {
       saved: false,
       pos: new THREE.Vector3(),
       target: new THREE.Vector3(),
+      fov: 23,
     };
 
     // --- animation ---
@@ -38,9 +41,12 @@ export default class Navigation {
       t: 0,
       duration: 1.0,
       fromPos: new THREE.Vector3(),
+      midPos: new THREE.Vector3(),
       fromTarget: new THREE.Vector3(),
       toPos: new THREE.Vector3(),
       toTarget: new THREE.Vector3(),
+      fromFov: 23,
+      toFov: 23,
     };
 
     // --- TV stage ---
@@ -58,6 +64,9 @@ export default class Navigation {
 
       durationIn: 1.1,
       durationOut: 0.9,
+      focusFov: 20,
+      arcHeight: 0.42,
+      arcSide: 0.12,
     };
 
     // --- COMPUTER stage ---
@@ -75,6 +84,9 @@ export default class Navigation {
 
       durationIn: 1.0,
       durationOut: 0.9,
+      focusFov: 19,
+      arcHeight: 0.32,
+      arcSide: -0.1,
     };
 
     this._bind();
@@ -92,8 +104,19 @@ export default class Navigation {
   _requestStage(stage) {
     if (!this.roomModel) return;
 
-    // ignore while animating
-    if (this.state === "entering" || this.state === "exiting") return;
+    // MOBILE PATH: skip the camera zoom-in entirely. Tapping a screen
+    // mesh opens a full-screen overlay with the same content.
+    if (isMobile()) {
+      showMobileOverlay(stage, () => {
+        // overlay closed — nothing to do, room stays as it was
+      });
+      return;
+    }
+
+    if (this.state === "entering" || this.state === "exiting") {
+      this.pendingStage = stage;
+      return;
+    }
 
     // from idle -> go in
     if (this.state === "idle") {
@@ -177,17 +200,21 @@ export default class Navigation {
   _onUp = (e) => {
     this._setMouseNDC(e);
 
-    // ignore drags
-    if (this.down.distanceTo(this.mouse) > 0.001) return;
+    // Drag threshold: looser for touch since fingers wobble more than mice.
+    const isTouch = e.pointerType === "touch" || isMobile();
+    const dragThreshold = isTouch ? 0.012 : 0.001;
+    if (this.down.distanceTo(this.mouse) > dragThreshold) return;
     if (!this.roomModel) return;
 
-    // only allow clicks when idle
-    if (this.state !== "idle") return;
+    // On mobile we always allow tap (the overlay path handles state),
+    // on desktop only allow clicks when idle.
+    if (!isMobile() && this.state !== "idle") return;
 
     const hit = this._pickStage();
     if (!hit) return;
 
-    this.enterStage(hit.stage, hit.focusObj);
+    // Route through _requestStage so mobile gets the overlay path.
+    this._requestStage(hit.stage);
   };
 
   _setMouseNDC(e) {
@@ -263,6 +290,9 @@ export default class Navigation {
       toPos: view.pos,
       toTarget: view.target,
       duration: view.duration,
+      toFov: view.fov,
+      arcHeight: view.arcHeight,
+      arcSide: view.arcSide,
     });
 
     this.state = "entering";
@@ -283,20 +313,47 @@ export default class Navigation {
       toPos: this.home.pos,
       toTarget: this.home.target,
       duration: dur,
+      toFov: this.home.fov,
+      arcHeight:
+        this.activeStage === "tv"
+          ? this.tv.arcHeight * 0.55
+          : this.computer.arcHeight * 0.55,
+      arcSide:
+        this.activeStage === "tv"
+          ? -this.tv.arcSide * 0.45
+          : -this.computer.arcSide * 0.45,
     });
 
     this.state = "exiting";
   }
 
-  _startAnim({ toPos, toTarget, duration }) {
+  _startAnim({ toPos, toTarget, duration, toFov, arcHeight = 0, arcSide = 0 }) {
     this.anim.t = 0;
     this.anim.duration = duration ?? 1.0;
 
     this.anim.fromPos.copy(this.camera.position);
     this.anim.fromTarget.copy(this.controls?.target ?? new THREE.Vector3());
+    this.anim.fromFov = this.camera.fov;
 
     this.anim.toPos.copy(toPos);
     this.anim.toTarget.copy(toTarget);
+    this.anim.toFov = toFov ?? this.camera.fov;
+
+    this.anim.midPos
+      .copy(this.anim.fromPos)
+      .add(this.anim.toPos)
+      .multiplyScalar(0.5);
+
+    const travel = this.anim.toPos.clone().sub(this.anim.fromPos);
+    const sideAxis = new THREE.Vector3().crossVectors(
+      travel,
+      new THREE.Vector3(0, 1, 0),
+    );
+    if (sideAxis.lengthSq() < 0.000001) sideAxis.set(1, 0, 0);
+    else sideAxis.normalize();
+
+    this.anim.midPos.y += arcHeight;
+    this.anim.midPos.addScaledVector(sideAxis, arcSide);
   }
 
   _computeStageView(stage, focusObj) {
@@ -309,6 +366,9 @@ export default class Navigation {
       pos: this.camera.position.clone(),
       target: (this.controls?.target ?? new THREE.Vector3()).clone(),
       duration: 1.0,
+      fov: this.camera.fov,
+      arcHeight: 0,
+      arcSide: 0,
     };
   }
 
@@ -326,6 +386,9 @@ export default class Navigation {
         pos: this.camera.position.clone(),
         target: (this.controls?.target ?? new THREE.Vector3()).clone(),
         duration: cfg.durationIn,
+        fov: cfg.focusFov ?? this.camera.fov,
+        arcHeight: cfg.arcHeight ?? 0,
+        arcSide: cfg.arcSide ?? 0,
       };
     }
 
@@ -354,7 +417,14 @@ export default class Navigation {
 
     const targetPos = focusPos.clone().addScaledVector(up, cfg.targetUp);
 
-    return { pos: camPos, target: targetPos, duration: cfg.durationIn };
+    return {
+      pos: camPos,
+      target: targetPos,
+      duration: cfg.durationIn,
+      fov: cfg.focusFov ?? this.camera.fov,
+      arcHeight: cfg.arcHeight ?? 0,
+      arcSide: cfg.arcSide ?? 0,
+    };
   }
 
   // -------------------- update loop --------------------
@@ -366,9 +436,22 @@ export default class Navigation {
     this.anim.t += dt;
 
     const u = THREE.MathUtils.clamp(this.anim.t / this.anim.duration, 0, 1);
-    const eased = THREE.MathUtils.smootherstep(u, 0, 1);
+    const eased = this._easeInOutCubic(u);
 
-    this.camera.position.lerpVectors(this.anim.fromPos, this.anim.toPos, eased);
+    this.camera.position.copy(
+      this._quadraticBezier(
+        this.anim.fromPos,
+        this.anim.midPos,
+        this.anim.toPos,
+        eased,
+      ),
+    );
+    this.camera.fov = THREE.MathUtils.lerp(
+      this.anim.fromFov,
+      this.anim.toFov,
+      eased,
+    );
+    this.camera.updateProjectionMatrix();
 
     if (this.controls) {
       this.controls.target.lerpVectors(
@@ -384,10 +467,29 @@ export default class Navigation {
     if (u >= 1) {
       if (this.state === "entering") {
         this.state = "focused";
-        // keep controls disabled while focused
+        this.camera.position.copy(this.anim.toPos);
+        this.camera.fov = this.anim.toFov;
+        this.camera.updateProjectionMatrix();
+        if (this.controls) {
+          this.controls.target.copy(this.anim.toTarget);
+          this.controls.update();
+        }
+        if (this.pendingStage && this.pendingStage !== this.activeStage) {
+          this.exitStage();
+        } else {
+          this.pendingStage = null;
+          // keep controls disabled while focused
+        }
       } else {
         this.state = "idle";
         this.activeStage = null;
+        this.camera.position.copy(this.home.pos);
+        this.camera.fov = this.home.fov;
+        this.camera.updateProjectionMatrix();
+        if (this.controls) {
+          this.controls.target.copy(this.home.target);
+          this.controls.update();
+        }
 
         if (this.controls) {
           this.controls.enabled = true;
@@ -407,11 +509,24 @@ export default class Navigation {
   }
 
   // -------------------- helpers --------------------
+  _easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  _quadraticBezier(a, b, c, t) {
+    const inv = 1 - t;
+    return new THREE.Vector3()
+      .addScaledVector(a, inv * inv)
+      .addScaledVector(b, 2 * inv * t)
+      .addScaledVector(c, t * t);
+  }
+
   _saveHomeOnce() {
     if (this.home.saved) return;
     this.home.saved = true;
     this.home.pos.copy(this.camera.position);
     this.home.target.copy(this.controls?.target ?? new THREE.Vector3());
+    this.home.fov = this.camera.fov;
   }
 
   destroy() {
